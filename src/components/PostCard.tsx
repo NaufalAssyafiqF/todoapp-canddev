@@ -1,13 +1,14 @@
+import Link from 'next/link';
 import React from 'react'
 
 const PostCard = () => {
   return (
-    <div className="card bg-base-100 w-96 shadow-xl">
+    <div className="card bg-base-100 w-80 shadow-xl">
       <div className="card-body">
         <h2 className="card-title">Card title!</h2>
         <p>If a dog chews shoes whose shoes does he choose?</p>
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">Buy Now</button>
+          <Link href="/blog/1" className="btn btn-primary">Read More...</Link>
         </div>
       </div>
     </div>
