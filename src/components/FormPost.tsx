@@ -10,19 +10,27 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 interface FormPostProps {
   submit: SubmitHandler<FormInputPost>
   isEditing: Boolean;
+  initialValue?: FormInputPost;
+  isLoadingSubmit: boolean;
 }
 
-const FormPost: React.FC<FormPostProps> = ({submit, isEditing}) => {
-  const {register, handleSubmit} = useForm<FormInputPost>()
+const FormPost: React.FC<FormPostProps> = ({
+  submit,
+  isEditing,
+  initialValue,
+  isLoadingSubmit,
+}) => {
+  const { register, handleSubmit } = useForm<FormInputPost>({
+    defaultValues: initialValue,
+  });
 
-  const {data: dataTags, isLoading: isLoadingTags} = useQuery<Tag[]>({
+  const { data: dataTags, isLoading: isLoadingTags } = useQuery<Tag[]>({
     queryKey: ["tags"],
     queryFn: async () => {
       const response = await axios.get("/api/tags");
       return response.data;
-    }
-  })
-
+    },
+  });
 
   return (
     <form
@@ -59,10 +67,17 @@ const FormPost: React.FC<FormPostProps> = ({submit, isEditing}) => {
         </select>
       )}
       <button type="submit" className="btn btn-primary w-full max-w-lg">
-        {isEditing ? "Update Post" : "Create Post"}
+        {isLoadingSubmit && <span className="loading loading-spinner"></span>}
+        {isEditing
+          ? isLoadingSubmit
+            ? "Updateing..."
+            : "Update Post"
+          : isLoadingSubmit
+          ? "Creating..."
+          : "Create Post"}
       </button>
     </form>
   );
-}
+};
 
 export default FormPost

@@ -34,7 +34,7 @@ const BlogPage: React.FC<BlogDetailParam> = async ({ params }) => {
       <BackButoon />
       <div className="mb-8">
         <h2 className="text-2xl font-bold my-4">{post?.title}</h2>
-        <ButtonAction />
+        <ButtonAction id={params.id}/>
       </div>
       <div className="badge badge-accent mb-2">{post?.tag.name}</div>
       <p className="text-slate-300">{post?.content}</p>

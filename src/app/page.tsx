@@ -22,6 +22,7 @@ export default async function Home() {
       {post?.map((item) => (
         <PostCard key={item.id} {...item} />
       ))}
+      {post.length==0 && <div className="">belum ada postingan</div>}
     </main>
   );
 }
